@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title th:text="${title} ?: 'Products List'">Products List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            margin-right: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .table {
+            background-color: #ffffff;
+        }
+
+        .table th, .table td {
+            border: 1px solid #dee2e6;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn-success, .btn-danger, .btn-warning {
+            margin-right: 5px;
+        }
+
+        .form-control.d-inline-block {
+            width: 70px;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>Products List</h1>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Thể loại</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Actions</th>
+            <th sec:authorize="!hasAuthority('ADMIN')">Add To Cart</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td>
+                <img height="120" width="150" th:src="@{/images/} + ${product.image}" alt="Hình ảnh sản phẩm"/>
+            </td>
+            <td th:text="${product.author}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.category.name}"></td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+                <!-- Hiển thị nút sửa và xóa chỉ dành cho người dùng ADMIN -->
+                <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Sửa</a>
+                <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc không?')">Xóa</a>
+            </td>
+            <td sec:authorize="!hasAuthority('ADMIN')">
+                <!-- Nút thêm vào giỏ hàng, hiển thị cho tất cả người dùng đã xác thực trừ ADMIN -->
+                <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()">
+                    <input type="number" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
+                    <input type="hidden" th:value="${product.id}" name="productId"/>
+                    <button type="submit" class="btn btn-warning btn-sm">Thêm Vào Giỏ</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>

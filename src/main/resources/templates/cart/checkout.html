@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="${title} ?: 'Your Cart'">Place Order</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+
+        .table {
+            background-color: #f8f9fa;
+        }
+
+        .table th, .table td {
+            border: none;
+        }
+
+        .table-light th, .table-light td {
+            background-color: #e2e3e5;
+            color: #212529;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-3">
+    <h1>Place Your Order</h1>
+    <form th:action="@{/order/submit}" method="post">
+        <div class="mb-3">
+            <label for="customerName" class="form-label">Tên Của Bạn:</label>
+            <input type="text" id="customerName" name="customerName" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="PhoneNumber" class="form-label">Số Điện Thoại:</label>
+            <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="StreetAddress" class="form-label">Địa Chỉ:</label>
+            <input type="text" id="StreetAddress" name="StreetAddress" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="text" id="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="note" class="form-label">Ghi Chú:</label>
+            <input type="text" id="note" name="note" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="thanhToan" class="form-label">Thanh Toán Bằng:</label>
+            <input type="text" id="thanhToan" name="thanhToan" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Đặt hàng</button>
+    </form>
+</section>
+</body>
+</html>
