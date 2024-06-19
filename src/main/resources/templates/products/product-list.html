@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <title th:text="${title} ?: 'Products List'">Products List</title>
@@ -8,19 +8,40 @@
     <style>
         body {
             background-color: #f8f9fa;
+
         }
 
-        h1 {
-            color: #007bff;
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #ffffff;
             text-align: center;
-            margin-top: 20px;
-            margin-bottom: 30px;
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .card-text {
+            margin-bottom: 10px;
         }
 
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
-            margin-right: 5px;
         }
 
         .btn-primary:hover {
@@ -28,76 +49,96 @@
             border-color: #0056b3;
         }
 
-        .table {
-            background-color: #ffffff;
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
         }
 
-        .table th, .table td {
-            border: 1px solid #dee2e6;
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+    </style>
+    <style>
+        .product-card {
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease-in-out;
         }
 
-        .table th {
-            background-color: #007bff;
-            color: #ffffff;
+        .product-card:hover {
+            transform: translateY(-10px);
         }
 
-        .table tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
+        .product-image {
+            flex: 2;
+            width: 100%;
+            object-fit: cover;
         }
 
-        .btn-success, .btn-danger, .btn-warning {
-            margin-right: 5px;
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px;
+            height: 100%;
         }
 
-        .form-control.d-inline-block {
-            width: 70px;
+        .product-details p {
+            margin: 5px 0;
+        }
+
+        .btn-details {
+            margin-top: auto; /* Align button to bottom */
+        }
+
+        .product-card-title {
+            height: 3em;
+            overflow: hidden;
+        }
+
+        .product-card img {
+            height: 200px;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
+
 <section layout:fragment="content">
-    <h1>Products List</h1>
-    <table class="table table-bordered table-hover">
-        <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Author</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Thể loại</th>
-            <th sec:authorize="hasAuthority('ADMIN')">Actions</th>
-            <th sec:authorize="!hasAuthority('ADMIN')">Add To Cart</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.name}"></td>
-            <td>
-                <img height="120" width="150" th:src="@{/images/} + ${product.image}" alt="Hình ảnh sản phẩm"/>
-            </td>
-            <td th:text="${product.author}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.description}"></td>
-            <td th:text="${product.category.name}"></td>
-            <td sec:authorize="hasAuthority('ADMIN')">
-                <!-- Hiển thị nút sửa và xóa chỉ dành cho người dùng ADMIN -->
-                <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Sửa</a>
-                <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc không?')">Xóa</a>
-            </td>
-            <td sec:authorize="!hasAuthority('ADMIN')">
-                <!-- Nút thêm vào giỏ hàng, hiển thị cho tất cả người dùng đã xác thực trừ ADMIN -->
-                <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()">
-                    <input type="number" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
-                    <input type="hidden" th:value="${product.id}" name="productId"/>
-                    <button type="submit" class="btn btn-warning btn-sm">Thêm Vào Giỏ</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="row">
+            <div th:each="product : ${products}" class="col-md-4">
+                <div class="card product-card">
+                    <div class="card-header">
+                        <h5 class="card-title" th:text="${product.name}"></h5>
+                    </div>
+                    <div class="product-image">
+                        <img th:src="@{/images/} + ${product.image}" class="card-img-top" alt="Product Image"/>
+                    </div>
+                    <div class="product-details">
+                        <p class="card-text" th:text="${product.description}"></p>
+                        <p class="card-text"><strong>Price: </strong> <span th:text="${product.price}"></span></p>
+                        <p class="card-text"><strong>Author: </strong> <span th:text="${product.author}"></span></p>
+                        <p class="card-text"><strong>Category: </strong> <span th:text="${product.category.name}"></span></p>
+                        <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()">
+                            <input type="number" name="quantity" min="1" value="1" class="form-control mb-2" style="width: 70px;">
+                            <input type="hidden" th:value="${product.id}" name="productId"/>
+                            <button type="submit" class="btn btn-warning btn-sm btn-details">Add to Cart</button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a th:href="@{/products/detail/{id}(id=${product.id})}" class="btn btn-primary btn-sm">View Details</a>
+                        <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm" sec:authorize="hasAuthority('ADMIN')">Edit</a>
+                        <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" sec:authorize="hasAuthority('ADMIN')" onclick="return confirm('Are you sure?')">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +23,12 @@ public class OrderService {
     private OrderDetailRepository orderDetailRepository;
     @Autowired
     private CartService cartService;  // Assuming you have a CartService
-
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+    public Order getOrderById(Long orderId) {
+        return orderRepository.findById(orderId).orElse(null);
+    }
     @Transactional
     public Order createOrder(String customerName, String StreetAddress, String PhoneNumber, String email, String note,String thanhToan, List<CartItem> cartItems) {
         Order order = new Order();
@@ -47,4 +53,5 @@ public class OrderService {
 
         return order;
     }
+
 }

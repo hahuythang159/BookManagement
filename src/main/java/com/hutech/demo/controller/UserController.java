@@ -11,11 +11,20 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller // Đánh dấu lớp này là một Controller trong Spring MVC.
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+
+    @GetMapping("/users")
+    public String getAllUsers(Model model) {
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "users/userList";
+    }
 
     @GetMapping("/login")
     public String login() {

@@ -102,10 +102,10 @@ public class ProductController {
                 // Add error logging
             }
         }
-            else{
-                Product existingProduct = productService.getProductById(id).orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
-                product.setImage(existingProduct.getImage());
-            }
+        else{
+            Product existingProduct = productService.getProductById(id).orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
+            product.setImage(existingProduct.getImage());
+        }
 
         productService.updateProduct(product);
         return "redirect:/products";

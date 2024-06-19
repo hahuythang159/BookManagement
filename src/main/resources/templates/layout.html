@@ -12,27 +12,79 @@
             text-decoration: underline; /* Underline text on hover */
         }
     </style>
+    <style>
+        /* Định dạng chung cho nút cuộn lên */
+.btn-scroll-top {
+    position: fixed; /* Giữ cố định vị trí của nút khi cuộn trang */
+    bottom: 20px; /* Cách đáy trang 20px */
+    left: 50%; /* Canh giữa trang */
+    transform: translateX(-50%); /* Điều chỉnh để canh giữa hoàn toàn */
+    background-color: Moccasin; /* Màu nền SpringGreen */
+    color: white; /* Màu chữ */
+    padding: 10px; /* Khoảng cách bên trong nút */
+    border-radius: 50%; /* Bo tròn nút */
+    text-align: center; /* Canh giữa nội dung bên trong nút */
+    display: flex; /* Hiển thị flexbox */
+    align-items: center; /* Canh giữa theo chiều dọc */
+    justify-content: center; /* Canh giữa theo chiều ngang */
+    cursor: pointer; /* Con trỏ dạng tay chỉ */
+    z-index: 1000; /* Hiển thị nút lên trên các phần tử khác */
+    text-decoration: none; /* Loại bỏ gạch chân mặc định của thẻ <a> */
+    opacity: 0.3; /* Mờ nút khi không dùng */
+    transition: opacity 0.5s, background-color 0.5s; /* Chuyển đổi mượt mà */
+}
+
+    .btn-scroll-top:hover {
+        opacity: 1; /* Hiển thị rõ nút khi hover */
+        background-color: SpringGreen; /* Màu nền khi hover (trong chế độ sáng) */
+    }
+
+    /* Hiển thị rõ nút khi cuộn xuống */
+    .btn-scroll-top.show {
+        opacity: 1;
+    }
+
+.btn-scroll-top-icon {
+    font-size: 20px; /* Kích thước biểu tượng */
+    line-height: 1; /* Chiều cao dòng */
+}
+
+/* Định dạng cho chế độ dark-mode */
+body.darkmode .btn-scroll-top {
+    background-color: Cyan; /* Màu nền Cyan cho chế độ dark-mode */
+}
+
+    body.darkmode .btn-scroll-top:hover {
+        background-color: Cyan; /* Màu nền Cyan khi hover trong chế độ dark-mode */
+    }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand text-white" href="/products">Web Bán Hàng</a>
+        <a class="navbar-brand text-white" href="/products">Web bán sách</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-white active" aria-current="page" href="/products">Product</a>
+                    <a class="nav-link text-white active" aria-current="page" href="/products">Sản phẩm</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-                    <a class="nav-link text-white active" aria-current="page" href="/categories">Category</a>
+                    <a class="nav-link text-white active" aria-current="page" href="/categories">Thể loại</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-                    <a th:href="@{/products/add}" class="nav-link text-white">Add New Product</a>
+                    <a class="nav-link text-white active" aria-current="page" href="/users">Quản Lý tài khoản</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-                    <a th:href="@{/categories/add}" class="nav-link text-white">Add New Category</a>
+                    <a class="nav-link text-white active" aria-current="page" href="/order">Quản Lý Đơn Hàng</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a th:href="@{/products/add}" class="nav-link text-white">Thêm sản phẩm mới</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a th:href="@{/categories/add}" class="nav-link text-white">Thêm thể loại</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
@@ -53,13 +105,86 @@
         </div>
     </div>
 </nav>
-
+<!-- Chatbox dialog -->
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger intent="WELCOME"
+              chat-title="VKAT Sells books"
+              agent-id="d4e66756-18ac-4c75-a17d-52e7ef389a72"
+              language-code="vi"></df-messenger>
+<a class="btn-scroll-top" href="#" data-scroll="true">
+    <i class="btn-scroll-top-icon">&#9650;</i> <!-- Biểu tượng mũi tên -->
+</a>
 <div class="container mt-5">
     <section layout:fragment="content">
         <!-- Nội dung cụ thể của từng trang sẽ được đặt tại đây -->
     </section>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Options for dark mode -->
+<script>
+    function addDarkmodeWidget() {
+        const options = {
+            bottom: '120px',
+            right: '32px',
+            left: 'unset',
+            time: '0.5s',
+            mixColor: '#fff',
+            backgroundColor: '#fff',
+            buttonColorDark: '#100f2c',
+            buttonColorLight: '#fff',
+            saveInCookies: true,
+            label: '🌓',
+            autoMatchOsTheme: true
+        };
+        const darkmode = new Darkmode(options);
+        darkmode.showWidget();
+
+        document.querySelector('.darkmode-toggle').addEventListener('click', function () {
+            setDarkmodeCookie(document.body.classList.contains('darkmode--activated'));
+        });
+    }
+
+    function setDarkmodeCookie(isDark) {
+        document.cookie = "darkmode=" + isDark + "; path=/";
+    }
+
+    function loadDarkmode() {
+        const darkmodeCookie = document.cookie.split('; ').find(row => row.startsWith('darkmode='));
+        if (darkmodeCookie && darkmodeCookie.split('=')[1] === 'true') {
+            document.body.classList.add('darkmode');
+        }
+    }
+
+    window.addEventListener('load', function () {
+        loadDarkmode();
+        addDarkmodeWidget();
+    });
+</script>
+
+<!-- Scroll to Top -->
+<script>
+    window.addEventListener('scroll', function () {
+        var scrollButton = document.querySelector('.btn-scroll-top');
+        if (window.pageYOffset > 100) {
+            scrollButton.style.display = 'block';
+        } else {
+            scrollButton.style.display = 'none';
+        }
+    });
+
+    function scrollToTop() {
+        var scrollDuration = 200;
+        var scrollStep = -window.scrollY / (scrollDuration / 20);
+        var scrollInterval = setInterval(function () {
+            if (window.scrollY !== 0) {
+                window.scrollBy(0, scrollStep);
+            } else {
+                clearInterval(scrollInterval);
+            }
+        }, 20);
+    }
+    loadDarkmode();
+</script>
 </body>
 </html>

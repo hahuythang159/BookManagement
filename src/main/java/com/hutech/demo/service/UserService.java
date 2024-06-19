@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 import java.util.Optional;
 
@@ -30,6 +31,9 @@ public class UserService implements UserDetailsService {
     public void save(@NotNull User user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
+    }
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     // Gán vai trò mặc định cho người dùng dựa trên tên người dùng.
