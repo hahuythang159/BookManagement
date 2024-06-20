@@ -50,21 +50,23 @@
             <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>Tên Khách Hàng</th>
-                <th>Địa Chỉ</th>
-                <th>SĐT</th>
+                <th>Tên khách hàng</th>
+                <th>Email</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
                 <th>Thanh Toán</th>
                 <th>Sản Phẩm</th>
-                <th>Ghi Chú</th>
-                <th>Hành Động</th>
+                <th>Ghi chú</th>
+                <th>Hành động</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="order : ${orders}">
                 <td th:text="${order.id}"></td>
                 <td th:text="${order.customerName}"></td>
-                <td th:text="${order.diaChi}"></td>
-                <td th:text="${order.SDT}"></td>
+                <td th:text="${order.email}"></td>
+                <td th:text="${order.StreetAddress}"></td>
+                <td th:text="${order.PhoneNumber}"></td>
                 <td th:text="${order.thanhToan}"></td>
                 <td>
                     <ul>
@@ -73,7 +75,7 @@
                         </li>
                     </ul>
                 </td>
-                <td th:text="${order.ghiChu}"></td>
+                <td th:text="${order.note}"></td>
                 <td>
                     <a th:href="@{/order/view/{orderId}(orderId=${order.id})}" class="btn btn-info btn-sm btn-view">Xem</a>
                 </td>

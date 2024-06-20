@@ -1,4 +1,5 @@
 package com.hutech.demo;
+
 import com.hutech.demo.service.UserService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -7,9 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration // Đánh dấu lớp này là một lớp cấu hình cho Spring Context.
@@ -22,6 +25,12 @@ public class SecurityConfig {
     @Bean // Đánh dấu phương thức trả về một bean được quản lý bởi Spring Context.
     public UserDetailsService userDetailsService() {
         return new UserService(); // Cung cấp dịch vụ xử lý chi tiết người dùng.
+//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+//        manager.createUser(User.withUsername("thang9ielts")
+//                .password("{noop}Aa@123")
+//                .roles("ADMIN")
+//                .build());
+//        return manager;
     }
 
     @Bean
@@ -41,12 +50,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/", "/oauth/**", "/register", "/error", "/products", "/cart", "/cart/**")
-                        .permitAll() // Cho phép truy cập không cần xác thực.
-                        .requestMatchers("/products/edit/**", "/products/add", "/products/delete")
-                        .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
-                        .requestMatchers("/api/**")
-                        .permitAll() // API mở cho mọi người dùng.
+                        .requestMatchers("/css/**", "/js/**", "/", "/oauth/**", "/register", "/error", "/products", "/cart", "/cart/**").permitAll() // Cho phép truy cập không cần xác thực.
+                        .requestMatchers("/products/edit/**", "/products/add", "/products/delete").hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
+                        .requestMatchers("/api/products/**").permitAll() // API mở cho mọi người dùng.
                         .anyRequest().authenticated() // Bất kỳ yêu cầu nào khác cần xác thực.
                 )
                 .logout(logout -> logout
@@ -85,6 +91,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/products") // Chuyển đến trang đăng ký sau khi đăng nhập bằng Google
                         .failureUrl("/login?error") // Trang đăng nhập thất bại.
                 )
+
                 .build(); // Xây dựng và trả về chuỗi lọc bảo mật.
     }
 }

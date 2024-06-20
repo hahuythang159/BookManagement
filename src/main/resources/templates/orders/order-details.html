@@ -50,10 +50,11 @@
             <h5 class="card-title">Thông tin đơn hàng</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><strong>Tên Khách Hàng:</strong> <span th:text="${order.customerName}"></span></li>
-                <li class="list-group-item"><strong>Địa Chỉ:</strong> <span th:text="${order.diaChi}"></span></li>
-                <li class="list-group-item"><strong>Số Điện Thoại:</strong> <span th:text="${order.SDT}"></span></li>
+                <li class="list-group-item"><strong>Email:</strong> <span th:text="${order.email}"></span></li>
+                <li class="list-group-item"><strong>Địa Chỉ:</strong> <span th:text="${order.StreetAddress}"></span></li>
+                <li class="list-group-item"><strong>Số Điện Thoại:</strong> <span th:text="${order.PhoneNumber}"></span></li>
                 <li class="list-group-item"><strong>Phương Thức Thanh Toán:</strong> <span th:text="${order.thanhToan}"></span></li>
-                <li class="list-group-item"><strong>Ghi Chú:</strong> <span th:text="${order.ghiChu}"></span></li>
+                <li class="list-group-item"><strong>Ghi Chú:</strong> <span th:text="${order.note}"></span></li>
             </ul>
         </div>
 
