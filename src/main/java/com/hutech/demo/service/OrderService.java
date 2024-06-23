@@ -46,6 +46,7 @@ public class OrderService {
             detail.setOrder(order);
             detail.setProduct(item.getProduct());
             detail.setQuantity(item.getQuantity());
+
             orderDetailRepository.save(detail);
         }
 
@@ -53,6 +54,15 @@ public class OrderService {
         cartService.clearCart();
 
         return order;
+    }
+    //Tinh tong so tien cua gio hang
+    public double calculateTotalAmount(Order order) {
+        double totalAmount = 0.0;
+        for (OrderDetail detail : order.getOrderDetails()) {
+            double itemTotal = detail.getProduct().getPrice() * detail.getQuantity();
+            totalAmount += itemTotal;
+        }
+        return totalAmount;
     }
 
 }

@@ -50,8 +50,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/", "/oauth/**", "/register", "/error", "/products", "/cart", "/cart/**").permitAll() // Cho phép truy cập không cần xác thực.
-                        .requestMatchers("/products/edit/**", "/products/add", "/products/delete").hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
+                        .requestMatchers("/css/**", "/js/**", "/", "/oauth/**", "/home","/products/detail/**", "/register", "/error", "/cart", "/cart/**").permitAll()
+                        .requestMatchers("/products/edit/**", "/products/add","/products/**" ,"/categories/**" ,"/products/delete").hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
                         .requestMatchers("/api/products/**").permitAll() // API mở cho mọi người dùng.
                         .anyRequest().authenticated() // Bất kỳ yêu cầu nào khác cần xác thực.
                 )
@@ -66,7 +66,7 @@ public class SecurityConfig {
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login") // Trang đăng nhập.
                         .loginProcessingUrl("/login") // URL xử lý đăng nhập.
-                        .defaultSuccessUrl("/products") // Trang sau đăng nhập thành công.
+                        .defaultSuccessUrl("/home") // Trang sau đăng nhập thành công.
                         .failureUrl("/login?error") // Trang đăng nhập thất bại.
                         .permitAll()
                 )
@@ -88,7 +88,7 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth2Login -> oauth2Login // Thêm cấu hình OAuth2 Login
                         .loginPage("/login") // Trang đăng nhập.
-                        .defaultSuccessUrl("/products") // Chuyển đến trang đăng ký sau khi đăng nhập bằng Google
+                        .defaultSuccessUrl("/home") // Chuyển đến trang đăng ký sau khi đăng nhập bằng Google
                         .failureUrl("/login?error") // Trang đăng nhập thất bại.
                 )
 

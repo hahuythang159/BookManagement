@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* CSS cho footer */
+        .footer {
+            background-color: #343a40; /* Màu nền */
+            color: #fff; /* Màu chữ */
+            padding: 60px 0; /* Khoảng cách nội dung footer */
+            font-size: 14px; /* Cỡ chữ */
+        }
+        .footer a {
+            color: #fff; /* Màu chữ cho các liên kết */
+            text-decoration: none; /* Loại bỏ gạch chân cho liên kết */
+        }
+        .footer a:hover {
+            text-decoration: underline; /* Gạch chân khi hover liên kết */
+        }
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer .logo {
+            font-size: 24px; /* Kích thước logo */
+            font-weight: bold; /* Đậm chữ cho logo */
+        }
+        .footer .social-icons {
+            display: flex;
+            gap: 20px; /* Khoảng cách giữa các biểu tượng mạng xã hội */
+        }
+        .footer .social-icons a {
+            font-size: 18px; /* Kích thước biểu tượng mạng xã hội */
+        }
+    </style>
+</head>
+<body>
+<footer class="footer">
+    <div class="ma-block-link-follow">
+        <div class="block-link-follow hidden-xs">
+            <div class="container">
+                <div class="container-inner">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="block-subscribe text-center">
+                                <div class="subscribe-title">
+                                    <em class="fa fa-envelope-o fa-inverse" style="font-size: 20px;">&nbsp;</em>
+                                    <h3>Newsletter</h3>
+                                    <label for="newsletter">Đăng ký nhận bản tin</label>
+                                </div>
+                                <form  method="post" id="newsletter-validate-detail">
+                                    <div class="subscribe-content">
+                                        <div class="input-group">
+                                            <input type="text" name="email" id="newsletter" title="Đăng ký nhận bản tin" class="form-control" placeholder="Nhập địa chỉ email của bạn">
+                                            <span class="input-group-btn">
+                                            <button type="submit" title="Đăng ký" class="btn btn-primary">Đăng ký</button>
+                                        </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <script type="text/javascript">
+                                document.getElementById('newsletter-validate-detail').addEventListener('submit', function (event) {
+                                    event.preventDefault(); // Ngăn không cho form gửi dữ liệu đi
+                                    alert('Tính năng này sẽ ra mắt sau, cảm ơn bạn đã đăng ký nhận thông báo!');
+                                });
+                            </script>
+                            <script type="text/javascript">
+                                var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="logo">
+            <span>VKAT</span> <!-- Thay thế bằng logo thực tế -->
+        </div>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/uess5fine/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/h_thang_h/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/thangfrontend/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+    <div class="container text-center mt-4">
+        <p class="text-muted">© 2024 VKAT - Website manager books</p>
+        <p><a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a></p>
+    </div>
+</footer>
+<!-- Các script nếu cần -->
+</body>
+</html>

@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -117,4 +118,17 @@ public class ProductController {
         productService.deleteProductById(id);
         return "redirect:/products";
     }
+    @GetMapping("/detail/{id}")
+    public String showProductDetail(@PathVariable("id") Long id, Model model) {
+        Optional<Product> productOptional = productService.findById(id);
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            model.addAttribute("product", product);
+
+            return "/products/products-detail"; // Return the HTML template for product detail page
+        } else {
+            return "redirect:/products"; // Redirect to product list if product not found
+        }
+    }
+
 }

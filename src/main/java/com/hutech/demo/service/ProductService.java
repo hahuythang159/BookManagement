@@ -24,6 +24,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+
+    // Retrieve a product by its id
+    public Optional<Product> findById(Long id) {
+        return productRepository.findById(id);
+    }
     // Retrieve a product by its id
     public Optional<Product> getProductById(Long id) {
         return productRepository.findById(id);
@@ -55,4 +60,6 @@ public class ProductService {
         orderDetailRepository.deleteByProductId(id);
         productRepository.deleteById(id);
     }
+
+
 }

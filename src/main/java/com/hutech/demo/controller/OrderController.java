@@ -53,7 +53,10 @@ public class OrderController {
         if (order == null) {
             return "redirect:/order"; // Redirect if order not found
         }
+        double totalAmount = orderService.calculateTotalAmount(order);
+
         model.addAttribute("order", order);
+        model.addAttribute("totalAmount", totalAmount);
         return "orders/order-details";
     }
 }

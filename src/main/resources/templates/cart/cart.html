@@ -76,33 +76,39 @@
 </head>
 <body>
 <section layout:fragment="content" class="container mt-3">
-    <h1>Your Cart</h1>
-    <div th:if="${cartItems.isEmpty()}" class="alert alert-info">Your cart is empty.</div>
+    <h1>Giỏ hàng</h1>
+    <div th:if="${cartItems.isEmpty()}" class="alert alert-info">Giỏ hàng trống.</div>
     <table class="table" th:unless="${cartItems.isEmpty()}">
         <thead class="table-light">
         <tr>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Action</th>
+            <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Giá cuốn sách</th>
+            <th>Thành tiền</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="item : ${cartItems}">
             <td th:text="${item.product.name}"></td>
             <td th:text="${item.quantity}"></td>
+            <td th:text="${item.product.price} + ' VND'"></td>
+            <td th:text="${item.product.price * item.quantity} + ' VND'"></td>
             <td>
                 <a th:href="@{/cart/remove/{productId}(productId=${item.product.id})}" class="btn btn-danger btn-sm">Remove</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <div class="mt-3" th:if="${!cartItems.isEmpty()}">
+        <h4>Tổng tiền: <span th:text="${totalAmount} + ' VND'"></span></h4>
+    </div>
     <div class="mt-3">
-        <a th:href="@{/cart/clear}" class="btn btn-secondary">Clear Cart</a>
+        <a th:href="@{/cart/clear}" class="btn btn-secondary">Xoá toàn bộ cuốn sách</a>
         <br/>
         <br/>
-        <a th:href="@{/order/checkout}" class="btn btn-primary mb-3">Check Out</a>
+        <a th:href="@{/order/checkout}" class="btn btn-primary mb-3">Thanh toán</a>
         <br/>
-        <a th:href="@{/products}" class="btn btn-primary mb-3">Back</a>
+        <a th:href="@{/home}" class="btn btn-primary mb-3">Tếp tục mua sắm</a>
     </div>
 </section>
 </body>

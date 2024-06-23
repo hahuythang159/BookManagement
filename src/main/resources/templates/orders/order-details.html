@@ -65,16 +65,23 @@
                     <thead class="table-dark">
                     <tr>
                         <th>Tên Sản Phẩm</th>
-                        <th>Số Lượng</th>
+                        <th>Count</th>
+                        <th>Giá sách</th>
+                        <th>Thành tiền</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="detail : ${order.orderDetails}">
                         <td th:text="${detail.product.name}"></td>
                         <td th:text="${detail.quantity}"></td>
+                        <td th:text="${#numbers.formatDecimal(detail.product.price, 1, 'COMMA', 2, 'POINT')} + ' VND'"></td>
+                        <td th:text="${#numbers.formatDecimal(detail.product.price * detail.quantity, 1, 'COMMA', 2, 'POINT')} + ' VND'"></td>
                     </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="mt-3">
+                <h5>Tổng tiền: <span th:text="${#numbers.formatDecimal(totalAmount, 1, 'COMMA', 2, 'POINT')} + ' VND'"></span></h5>
             </div>
         </div>
     </div>
