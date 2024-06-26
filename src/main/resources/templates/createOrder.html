@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Tạo đơn hàng</title>
+</head>
+
+<body>
+<div class="container" layout:fragment="content">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <img th:src="@{/vnpay-logo.png}" style="width: 200px">
+                    <h2 class="card-title">Tạo Đơn Hàng</h2>
+                    <form th:action="@{/order/submit}" method="post">
+                        <div class="form-group">
+                            <label for="customerName">Tên khách hàng:</label>
+                            <input type="text" class="form-control" id="customerName" name="customerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="StreetAddress">Địa chỉ:</label>
+                            <input type="text" class="form-control" id="StreetAddress" name="StreetAddress" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="PhoneNumber">Số điện thoại:</label>
+                            <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="note">Ghi chú:</label>
+                            <input type="text" class="form-control" id="note" name="note">
+                        </div>
+                        <div class="form-group">
+                            <label for="thanhToan">Hình thức thanh toán:</label>
+                            <select class="form-control" id="thanhToan" name="thanhToan">
+                                <option value="online">Thanh toán VNPay</option>
+                                <option value="cash">Thanh toán tiền mặt</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tạo đơn hàng</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

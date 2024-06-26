@@ -50,7 +50,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/", "/oauth/**", "/home","/products/detail/**", "/register", "/error", "/cart", "/cart/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/", "/oauth/**", "/home","/products/detail/**", "/register", "/error", "/cart", "/cart/**", "/images/**").permitAll()
                         .requestMatchers("/products/edit/**", "/products/add","/products/**" ,"/categories/**" ,"/products/delete").hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
                         .requestMatchers("/api/products/**").permitAll() // API mở cho mọi người dùng.
                         .anyRequest().authenticated() // Bất kỳ yêu cầu nào khác cần xác thực.
@@ -89,8 +89,10 @@ public class SecurityConfig {
                 .oauth2Login(oauth2Login -> oauth2Login // Thêm cấu hình OAuth2 Login
                         .loginPage("/login") // Trang đăng nhập.
                         .defaultSuccessUrl("/home") // Chuyển đến trang đăng ký sau khi đăng nhập bằng Google
-                        .failureUrl("/login?error") // Trang đăng nhập thất bại.
+                        .failureUrl("/login?error") // Trang đăng nhập thất bại..
+
                 )
+
 
                 .build(); // Xây dựng và trả về chuỗi lọc bảo mật.
     }

@@ -18,6 +18,8 @@ public class Order {
     private String email;
     private String note;
     private String thanhToan;
+    private double totalPrice;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetails;
+
 }

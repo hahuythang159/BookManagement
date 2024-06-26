@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +21,8 @@ public class OrderService {
     @Autowired
     private OrderDetailRepository orderDetailRepository;
     @Autowired
-    private CartService cartService;  // Assuming you have a CartService
+    private CartService cartService;
+
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
@@ -30,12 +30,13 @@ public class OrderService {
     public Order getOrderById(Long orderId) {
         return orderRepository.findById(orderId).orElse(null);
     }
+
     @Transactional
-    public Order createOrder(String customerName, String StreetAddress, String PhoneNumber, String email, String note,String thanhToan, List<CartItem> cartItems) {
+    public Order createOrder(String customerName, String streetAddress, String phoneNumber, String email, String note, String thanhToan, List<CartItem> cartItems) {
         Order order = new Order();
         order.setCustomerName(customerName);
-        order.setStreetAddress(StreetAddress);
-        order.setPhoneNumber(PhoneNumber);
+        order.setStreetAddress(streetAddress);
+        order.setPhoneNumber(phoneNumber);
         order.setEmail(email);
         order.setNote(note);
         order.setThanhToan(thanhToan);
@@ -55,7 +56,12 @@ public class OrderService {
 
         return order;
     }
-    //Tinh tong so tien cua gio hang
+
+    public void save(Order order) {
+        orderRepository.save(order);
+    }
+
+    // Tính tổng số tiền của giỏ hàng
     public double calculateTotalAmount(Order order) {
         double totalAmount = 0.0;
         for (OrderDetail detail : order.getOrderDetails()) {
@@ -64,5 +70,4 @@ public class OrderService {
         }
         return totalAmount;
     }
-
 }

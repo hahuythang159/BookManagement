@@ -5,6 +5,8 @@ import com.hutech.demo.model.Order;
 import com.hutech.demo.model.Product;
 import com.hutech.demo.service.CartService;
 import com.hutech.demo.service.OrderService;
+import com.hutech.demo.service.VNPAYService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,19 +24,34 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private VNPAYService vnPayService;
 
     @GetMapping("/checkout")
     public String checkout() {
         return "/cart/checkout";
     }
     @PostMapping("/submit")
-    public String submitOrder(String customerName, String StreetAddress, String PhoneNumber, String email, String note, String thanhToan) {
+    public String submitOrder(String customerName, String StreetAddress, String PhoneNumber, String email, String note, String thanhToan, HttpServletRequest request) {
         List<CartItem> cartItems = cartService.getCartItems();
         if (cartItems.isEmpty()) {
             return "redirect:/cart"; // Redirect if cart is empty
         }
-        orderService.createOrder(customerName, StreetAddress, PhoneNumber, email, note, thanhToan, cartItems);
-        return "redirect:/order/confirmation";
+
+        double totalAmount = cartItems.stream()
+                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
+                .sum();
+
+        if ("online".equals(thanhToan)) {
+            // Xử lý thanh toán bằng VNPay
+            String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+            String vnpayUrl = vnPayService.createOrder(request, (int) totalAmount, "Thanh toán giỏ hàng", baseUrl);
+            return "redirect:" + vnpayUrl;
+        } else {
+            // Xử lý thanh toán tiền mặt
+            orderService.createOrder(customerName, StreetAddress, PhoneNumber, email, note, thanhToan, cartItems);
+            return "redirect:/order/confirmation";
+        }
     }
     @GetMapping
     public String showOrderList(Model model) {
@@ -59,4 +76,21 @@ public class OrderController {
         model.addAttribute("totalAmount", totalAmount);
         return "orders/order-details";
     }
+    @GetMapping("/vnpay-payment-return")
+    public String paymentCompleted(HttpServletRequest request, Model model) {
+        int paymentStatus = vnPayService.orderReturn(request);
+
+        String orderInfo = request.getParameter("vnp_OrderInfo");
+        String paymentTime = request.getParameter("vnp_PayDate");
+        String transactionId = request.getParameter("vnp_TransactionNo");
+        String totalPrice = request.getParameter("vnp_Amount");
+
+        model.addAttribute("orderId", orderInfo);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("paymentTime", paymentTime);
+        model.addAttribute("transactionId", transactionId);
+
+        return paymentStatus == 1 ? "ordersuccess" : "orderfail";
+    }
+
 }

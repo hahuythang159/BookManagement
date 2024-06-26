@@ -100,7 +100,10 @@
         </div>
         <div class="mb-3">
             <label for="thanhToan" class="form-label">Thanh Toán Bằng:</label>
-            <input type="text" id="thanhToan" name="thanhToan" class="form-control" required>
+            <select id="thanhToan" name="thanhToan" class="form-control" required>
+                <option value="cash">Tiền mặt</option>
+                <option value="online">VNPay</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Đặt hàng</button>
     </form>
