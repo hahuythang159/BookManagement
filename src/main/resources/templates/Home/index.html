@@ -5,23 +5,21 @@
 <head>
     <title th:text="${title} ?: 'Products List'">Trang chủ</title>
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <!-- Font Awesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
-              font-family: Arial, Helvetica, sans-serif;
-
+            font-family: Arial, Helvetica, sans-serif;
         }
+
 
         .card {
             margin-bottom: 20px;
         }
 
         .card-header {
-            background-color: #007bff;
-            color: #ffffff;
             text-align: center;
         }
 
@@ -62,8 +60,7 @@
             background-color: #e0a800;
             border-color: #e0a800;
         }
-    </style>
-    <style>
+
         .product-card {
             margin-bottom: 30px;
             display: flex;
@@ -110,72 +107,70 @@
             width: 100%;
             object-fit: cover;
         }
-    </style>
-    <style>
-        .aa{
-          display: flex;
-          justify-content: space-around; /* Căn đều khoảng cách giữa các flip box */
+
+        .aa {
+            display: flex;
+            justify-content: space-around; /* Căn đều khoảng cách giữa các flip box */
             margin: 50px;
-
         }
+
         .flip-box {
-          background-color: transparent;
-          width: 300px;
-          height: 300px;
-          border: 1px solid #f1f1f1;
-          perspective: 1000px;
+            background-color: transparent;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #f1f1f1;
+            perspective: 1000px;
         }
 
-    .flip-box-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      transition: transform 0.8s;
-      transform-style: preserve-3d;
-    }
+        .flip-box-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
 
-    .flip-box:hover .flip-box-inner {
-      transform: rotateY(180deg);
-    }
+        .flip-box:hover .flip-box-inner {
+            transform: rotateY(180deg);
+        }
 
-    .flip-box-front, .flip-box-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white; /* Màu chữ */
-      padding: 20px; /* Khoảng cách bên trong để nội dung không sát lề */
-      box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước của box */
-    }
+        .flip-box-front, .flip-box-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white; /* Màu chữ */
+            padding: 20px; /* Khoảng cách bên trong để nội dung không sát lề */
+            box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước của box */
+        }
 
-    .flip-box-front {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
+        .flip-box-front {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
 
-    .flip-box-back {
-      background-color: rgba(0, 0, 0, 0.5);
-      transform: rotateY(180deg);
-    }
+        .flip-box-back {
+            background-color: rgba(0, 0, 0, 0.5);
+            transform: rotateY(180deg);
+        }
 
-    .background-image {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      object-fit: cover;
-      z-index: -1; /* Đặt ảnh nền phía sau nội dung */
-      filter: blur(5px); /* Làm mờ ảnh nền */
-    }
-    </style>
-    <style>
-        /*animation */
+        .background-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            z-index: -1; /* Đặt ảnh nền phía sau nội dung */
+            filter: blur(5px); /* Làm mờ ảnh nền */
+        }
+
+        /* Animation */
         @-webkit-keyframes my {
             0% {
                 color: #F8CD0A;
@@ -241,73 +236,71 @@
             -o-animation: my 700ms infinite;
             animation: my 700ms infinite;
         }
-    </style>
 
-    <style>
-        /* CSS COMMENT CUSTOMER*/
+        /* CSS for Testimonials */
         .testimonials-container {
-        display: flex;
-        max-width: 1200px;
-        margin: 160px auto;
-        height: 400px;
+            display: flex;
+            max-width: 1200px;
+            margin: 160px auto;
+            height: 400px;
         }
 
         .title-section {
-        flex: 1;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
         }
 
         .testimonials-button {
-        background-color: #e0e0e0;
-        border: none;
-        padding: 5px 10px;
-        font-size: 14px;
-        border-radius: 5px;
-        cursor: pointer;
+            background-color: #e0e0e0;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         h1 {
-        font-size: 32px;
-        margin: 10px 0;
+            font-size: 32px;
+            margin: 10px 0;
         }
 
         p {
-        color: #555;
-        line-height: 1.6;
+            color: #555;
+            line-height: 1.6;
         }
 
         .testimonials-section {
-        flex: 1;
-        overflow: hidden;
-        position: relative;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
         }
 
         .testimonials-wrapper {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
         }
 
         .testimonial {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        margin-bottom: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
         .testimonial-content {
-        display: flex;
-        flex-direction: column;
+            display: flex;
+            flex-direction: column;
         }
 
         .customer-info {
-        display: flex;
-        align-items: center;
-        margin-top: 20px;
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
         }
 
         .customer-info img {
@@ -329,10 +322,21 @@
 </head>
 <body>
 <section layout:fragment="content">
+    <!-- Container with a beautiful cover at the top -->
+    <div class="container my-5">
+        <div class="text-center">
+            <h1 class="display-4">Welcome to VKAT Book Management Website</h1>
+            <p class="lead">Khám phá và mua sách một cách dễ dàng và tận hưởng các ưu đãi độc quyền của chúng tôi..</p>
+            <img src="https://fusiongraphicdesign.co.uk/wp-content/uploads/2018/07/book-design-3.jpg" class="img-fluid" alt="Cover Image">
+
+
+        </div>
+    </div>
     <!-- Tiêu đề phía dưới carousel -->
     <div id="title-Hot" class="text-center">
-        <p class="test">Chào mừng tới VKAT Book management website</p>
+        <p class="test">Những cuốn sách thú vị đang chờ đón</p>
     </div>
+
 
     <section id="intro-section" class="w3l-passion-mid-sec home-phny py-5">
         <div class="container py-md-5 py-3">
@@ -346,7 +350,7 @@
                     <div class="col-lg-6 w3hny-passion-item">
                         <div class="row">
                             <div class="col-6 passion-grid-item-pic">
-                                <img src="https://fusiongraphicdesign.co.uk/wp-content/uploads/2018/07/book-design-3.jpg" alt="" class="img-fluid radius-image">
+                                <img src="https://fusiongraphicdesign.co.uk/wp-content/uploads/2018/07/book-design-7.jpg" alt="" class="img-fluid radius-image">
                             </div>
                             <div class="col-6 passion-grid-item-pic">
                                 <img src="https://fusiongraphicdesign.co.uk/wp-content/uploads/2018/07/cover-design-simon-thomas.jpg" alt="" class="img-fluid radius-image">
@@ -357,20 +361,19 @@
             </div>
         </div>
     </section>
-
+    <br>
     <div class="aa">
         <div class="flip-box">
             <div class="flip-box-inner">
                 <div class="flip-box-front">
-                    <img src="link_to_your_front_image.jpg" alt="Front Image" class="background-image">
-                    <h2>Sách Hay Thế Giới</h2>
-                    <p>Khám phá cuốn sách này với những trang văn cảm hứng và hình ảnh bìa bắt mắt. Đây là một hành trình đầy ấn tượng từ trang đầu tiên đến trang cuối.</p>
-                    <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                    <img src="https://i.poweredtemplates.com/p/sp/103105/sp_slide_h_1.jpg" alt="Front Image" class="background-image">
+                    <h2>Đắc Nhân tâm</h2>
+                    <p style="color: white;"> Vấn đề vô ngã thật không dễ dàng quán triệt, không dễ dàng tiếp nhận, chỉ khi nào giác ngộ, thực chứng, mới thấy như thật về nó. Đức Phật chỉ ....</p>
                 </div>
                 <div class="flip-box-back">
-                    <h2>Sách Hay Thế Giới</h2>
-                    <p>Nhận xét từ độc giả: "Cuốn sách này đã thay đổi cách nhìn của tôi về thế giới." Hãy khám phá ngay và cảm nhận những điều thú vị mà sách mang lại.</p>
-                    <a href="#" class="btn btn-primary">Mua Ngay</a>
+                    <h2>Đắc Nhân tâm</h2>
+                    <p style="color: white;">Nhận xét từ độc giả: "Cuốn sách này đã thay đổi cách nhìn của tôi về thế giới." Hãy khám phá ngay và cảm nhận những điều thú vị mà sách mang lại.</p>
+                    <a href="/products/detail/9" class="btn btn-primary">Xem chi tiết</a>
                 </div>
             </div>
         </div>
@@ -378,15 +381,14 @@
         <div class="flip-box">
             <div class="flip-box-inner">
                 <div class="flip-box-front">
-                    <img src="link_to_your_front_image.jpg" alt="Front Image" class="background-image">
-                    <h2>Phiêu Lưu Huyền Bí</h2>
-                    <p>Khám phá những mẩu chuyện thần bí với cuốn sách này. Dự kiến cho những pha hành trình ly kỳ và những khám phá kỳ diệu.</p>
-                    <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                    <img src="https://salt.tikicdn.com/ts/product/ea/70/34/b8ac272ef5acfa9d13de26ce7baacff8.jpg" alt="Front Image" class="background-image">
+                    <h2>Tâm Lý Học Về Tiền</h2>
+                    <p style="color: white;"> Đọc sách là một trong những phương pháp giúp con người thư giãn, tích lũy kiến thức, tăng cường khả năng tư duy sáng tạo.</p>
                 </div>
                 <div class="flip-box-back">
-                    <h2>Phiêu Lưu Huyền Bí</h2>
-                    <p>Đánh giá từ độc giả: "Sách này thực sự là một cuộc phiêu lưu tuyệt vời, không thể bỏ qua!" Hãy đọc và cảm nhận sự hấp dẫn của mỗi trang sách.</p>
-                    <a href="#" class="btn btn-primary">Mua Ngay</a>
+                    <h2>Tâm Lý Học Về Tiền</h2>
+                    <p style="color: white;">Đánh giá từ độc giả: "Càng đọc sâu, càng suy ngẫm, càng cảm nhận được rõ đây không chỉ là một ấn bản thông thường mà nó còn có ích cho mọi người đang sống trong Nền Kinh tế/Giáo dục.</p>
+                    <a href="/products/detail/4" class="btn btn-primary">Xem chi tiết</a>
                 </div>
             </div>
         </div>
@@ -394,20 +396,28 @@
         <div class="flip-box">
             <div class="flip-box-inner">
                 <div class="flip-box-front">
-                    <img src="link_to_your_front_image.jpg" alt="Front Image" class="background-image">
-                    <h2>Nghệ Thuật Tự Truyện</h2>
-                    <p>Khám phá hành trình đáng nhớ của tác giả qua mỗi trang sách. Một cuốn tự truyện sâu sắc về đam mê và nỗ lực.</p>
-                    <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                    <img src="https://product.hstatic.net/200000122283/product/bi-an-thu-tu-sinh-vlycu_4df3b622bdf84431b4e454ca1137accb_master.jpg" alt="Front Image" class="background-image">
+                    <h2>Sống Có Giá Trị</h2>
+                    <p style="color: white;"> Bí mật của hạnh phúc cho bạn và những người xung quanh bạn là hãy học cách hạnh phúc ngay tại thời điểm này chứ không phải cố gắng phấn đấu.</p>
 
                 </div>
                 <div class="flip-box-back">
-                    <h2>Nghệ Thuật Tự Truyện</h2>
-                    <p>Nhận xét từ độc giả: "Tôi đã cảm thấy như mình đang sống lại cuộc đời tác giả qua từng dòng văn." Hãy khám phá câu chuyện đầy cảm hứng này ngay hôm nay.</p>
-                    <a href="#" class="btn btn-primary">Mua Ngay</a>
+                    <h2>Sống Có Giá Trị</h2>
+                    <p style="color: white;">Nhận xét từ độc giả: " Những người con cả trong gia đình có xu hướng làm lãnh đạo, thành công hơn và những đứa con út thường gắn với sự "nổi loạn".</p>
+                    <a href="/products/detail/11" class="btn btn-primary">Xem chi tiết</a>
                 </div>
             </div>
         </div>
     </div>
+    <form th:action="@{/home/search}" method="get" class="mb-3">
+        <br/>
+        <div class="input-group">
+            <input type="text" id="search" name="query" class="form-control" placeholder="Tìm kiếm sản phẩm...">
+            <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+        </div>
+    </form>
+    <h1>Danh Sách Sản Phẩm</h1>
+    <br/>
     <div class="container">
         <div class="row">
             <div th:each="product : ${products}" class="col-md-4">
@@ -420,6 +430,7 @@
                     </div>
                     <div class="product-details">
                         <p class="card-text"><strong>Author: </strong> <span th:text="${product.author}"></span></p>
+                        <p class="card-text"><strong>Stock: </strong> <span th:text="${product.stockQuantity}"></span></p> <!-- Display stock quantity -->
                         <p class="card-text"><strong>Price: </strong> <span th:text="${product.price}"></span></p>
                     </div>
                     <div class="card-footer text-center">
@@ -518,6 +529,8 @@
             </div>
         </div>
     </div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1647.4958000049492!2d106.78451288004783!3d10.85505699455519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175276e7ea103df%3A0xb6cf10bb7d719327!2zSFVURUNIIC0gxJDhuqFpIGjhu41jIEPDtG5nIG5naOG7hyBUUC5IQ00gKFRodSBEdWMgQ2FtcHVzKQ!5e0!3m2!1svi!2s!4v1712667175017!5m2!1svi!2s" width="100%" height="380" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
     <div th:replace="footer :: footer"></div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -546,6 +559,8 @@
         });
     </script>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
 

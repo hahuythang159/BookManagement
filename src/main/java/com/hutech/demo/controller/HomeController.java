@@ -37,5 +37,13 @@ public class HomeController {
             return "redirect:/home"; // Redirect to product list if product not found
         }
     }
+    //Tìm kiếm sản phẩm
+    @GetMapping("/search")
+    public String searchProducts(@RequestParam("query") String query, Model model) {
+        List<Product> products = productService.searchProducts(query);
+        model.addAttribute("products", products);
+        model.addAttribute("title", "Products List");
+        return "home/index"; // Đảm bảo rằng tên của template là "products/list"
+    }
 
 }

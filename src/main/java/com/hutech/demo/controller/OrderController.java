@@ -3,18 +3,23 @@ package com.hutech.demo.controller;
 import com.hutech.demo.model.CartItem;
 import com.hutech.demo.model.Order;
 import com.hutech.demo.model.Product;
+import com.hutech.demo.repository.OrderRepository;
+import org.springframework.http.HttpHeaders;
 import com.hutech.demo.service.CartService;
+import com.hutech.demo.service.ExcelExportService;
 import com.hutech.demo.service.OrderService;
 import com.hutech.demo.service.VNPAYService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 @Controller
@@ -26,6 +31,8 @@ public class OrderController {
     private CartService cartService;
     @Autowired
     private VNPAYService vnPayService;
+    @Autowired
+    private ExcelExportService excelExportService;
 
     @GetMapping("/checkout")
     public String checkout() {
@@ -91,6 +98,21 @@ public class OrderController {
         model.addAttribute("transactionId", transactionId);
 
         return paymentStatus == 1 ? "ordersuccess" : "orderfail";
+    }
+
+    // Xuất danh sách đơn hàng ra file Excel
+    @GetMapping("/export")
+    public ResponseEntity<InputStreamResource> exportOrderListToExcel() {
+        List<Order> orders = orderService.getAllOrders();
+        ByteArrayInputStream in = excelExportService.exportOrderListToExcel(orders);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=orders.xlsx");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                .body(new InputStreamResource(in));
     }
 
 }

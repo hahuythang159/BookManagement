@@ -1,6 +1,7 @@
 package com.hutech.demo.controller;
 
 import com.hutech.demo.model.Category;
+import com.hutech.demo.model.Product;
 import com.hutech.demo.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -74,6 +76,5 @@ public class CategoryController {
         model.addAttribute("categories", categoryService.getAllCategories());
         return "redirect:/categories";
     }
-
 
 }

@@ -19,4 +19,8 @@ public class Product {
     @JoinColumn(name ="category_id")
     private Category category;
     private String image;
+    private boolean visible = true; // Mặc định sản phẩm hiển thị
+    @Column(nullable = true) // Cho phép sales_count có thể để trống
+    private Integer sales_count;
+
 }

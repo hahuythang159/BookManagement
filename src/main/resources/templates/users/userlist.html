@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layout}">
 <head>
     <title>Danh Sách Người Dùng</title>
@@ -9,7 +9,7 @@
         .table {
             width: 100%;
             margin-bottom: 1rem;
-            background-color: #f8f9fa; /* Light gray background */
+            background-color: #f8f9fa;
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
         }
         h1 {
@@ -21,8 +21,8 @@
         .table thead th {
             vertical-align: middle;
             border-color: #dee2e6;
-            background-color: #343a40; /* Dark background for header */
-            color: #ffffff; /* White text */
+            background-color: #343a40;
+            color: #ffffff;
         }
 
         .table-bordered {
@@ -35,7 +35,7 @@
         }
 
         .table-hover tbody tr:hover {
-            background-color: #e9ecef; /* Light gray background on hover */
+            background-color: #e9ecef;
         }
 
         .table-dark {
@@ -50,24 +50,48 @@
             border-color: #454d55;
         }
 
-        /* Responsive table wrapper */
         .table-responsive {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Custom styles for container */
         .container {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
+
+        /* Customize button styles */
+        .btn-enable {
+            color: #ffffff;
+            background-color: #28a745; /* Green */
+            border-color: #28a745;
+        }
+
+        .btn-enable:hover {
+            background-color: #218838; /* Darker green */
+            border-color: #1e7e34;
+        }
+
+        .btn-disable {
+            color: #ffffff;
+            background-color: #dc3545; /* Red */
+            border-color: #dc3545;
+        }
+
+        .btn-disable:hover {
+            background-color: #c82333; /* Darker red */
+            border-color: #bd2130;
+        }
     </style>
 </head>
 <body>
 <div class="container" layout:fragment="content">
     <h1 class="mt-4 mb-4">Danh Sách Người Dùng</h1>
+    <div class="mb-3">
+        <a class="btn btn-primary" href="/export" target="_blank">Xuất File Excel Danh Sách Người Dùng</a>
+    </div>
     <table class="table table-bordered table-hover">
         <thead class="table-dark">
         <tr>
@@ -76,6 +100,7 @@
             <th>Email</th>
             <th>Số điện thoại</th>
             <th>Vai trò</th>
+            <th>Hành động</th>
         </tr>
         </thead>
         <tbody>
@@ -89,9 +114,18 @@
                     <li th:each="role : ${user.roles}" th:text="${role.name}"></li>
                 </ul>
             </td>
+            <td>
+                <form th:action="@{/users/enable/{id}(id=${user.id})}" method="post">
+                    <button type="submit" class="btn btn-enable" th:disabled="${user.enabled}">Enable</button>
+                </form>
+                <form th:action="@{/users/disable/{id}(id=${user.id})}" method="post">
+                    <button type="submit" class="btn btn-disable" th:disabled="${!user.enabled}">Disable</button>
+                </form>
+            </td>
         </tr>
+        </tbody>
     </table>
 </div>
+
 </body>
 </html>
-

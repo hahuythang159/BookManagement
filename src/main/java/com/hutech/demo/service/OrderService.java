@@ -3,6 +3,7 @@ package com.hutech.demo.service;
 import com.hutech.demo.model.CartItem;
 import com.hutech.demo.model.Order;
 import com.hutech.demo.model.OrderDetail;
+import com.hutech.demo.model.Product;
 import com.hutech.demo.repository.OrderDetailRepository;
 import com.hutech.demo.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;

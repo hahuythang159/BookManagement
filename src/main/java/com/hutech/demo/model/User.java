@@ -51,7 +51,10 @@ public class User implements UserDetails {
     @Column(name = "provider", length = 50)
     private String provider;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @Column(name = "enabled")
+    private boolean enabled = true;
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -92,7 +95,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 
     @Override

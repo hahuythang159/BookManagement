@@ -1,6 +1,7 @@
 package com.hutech.demo.service;
 
 import com.hutech.demo.model.Category;
+import com.hutech.demo.model.Product;
 import com.hutech.demo.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

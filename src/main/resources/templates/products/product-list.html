@@ -59,6 +59,14 @@
 <body>
 <section layout:fragment="content">
     <h1>Quản lý sách</h1>
+    <a class="btn btn-primary" href="/products/export" target="_blank">Xuất File Excel Danh Sách Sản Phẩm</a>
+    <form th:action="@{/products/search}" method="get" class="mb-3">
+        <br/>
+        <div class="input-group">
+            <input type="text" id="search" name="query" class="form-control" placeholder="Tìm kiếm sản phẩm...">
+            <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+        </div>
+    </form>
     <div class="mb-3">
         <a th:href="@{/products/add}" class="btn btn-primary">Thêm sản phẩm mới</a>
     </div>

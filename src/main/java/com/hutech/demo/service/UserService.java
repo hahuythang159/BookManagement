@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,9 +27,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private IRoleRepository roleRepository;
 
-    // Lưu người dùng mới vào cơ sở dữ liệu sau khi mã hóa mật khẩu.
     public void save(@NotNull User user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setEnabled(true); // Ensure the user is enabled by default
         userRepository.save(user);
     }
 
@@ -37,7 +37,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    // Gán vai trò mặc định cho người dùng dựa trên tên người dùng.
     public void setDefaultRole(String username) {
         userRepository.findByUsername(username).ifPresentOrElse(
                 user -> {
@@ -48,7 +47,6 @@ public class UserService implements UserDetailsService {
         );
     }
 
-    // Tải thông tin chi tiết người dùng để xác thực.
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userRepository.findByUsername(username)
@@ -64,8 +62,19 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    // Tìm kiếm người dùng dựa trên tên đăng nhập.
     public Optional<User> findByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
+    }
+
+    public void enableUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + userId));
+        user.setEnabled(true);
+        userRepository.save(user);
+    }
+
+    public void disableUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + userId));
+        user.setEnabled(false);
+        userRepository.save(user);
     }
 }
