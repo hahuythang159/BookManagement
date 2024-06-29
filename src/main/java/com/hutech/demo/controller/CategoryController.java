@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -68,11 +69,13 @@ public class CategoryController {
 
     // GET request for deleting category
     @GetMapping("/categories/delete/{id}")
-    public String deleteCategory(@PathVariable("id") Long id, Model model) {
-        Category category = categoryService.getCategoryById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid category Id:" + id));
-
-        categoryService.deleteCategoryById(id);
+    public String deleteCategory(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            categoryService.deleteCategoryById(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Category deleted successfully.");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
         model.addAttribute("categories", categoryService.getAllCategories());
         return "redirect:/categories";
     }

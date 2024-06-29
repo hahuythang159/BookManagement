@@ -59,6 +59,15 @@
 <body>
 <section layout:fragment="content">
     <h1>Quản lý sách</h1>
+    <!-- Thông báo thành công -->
+    <div th:if="${not #strings.isEmpty(successMessage)}" class="alert alert-success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <!-- Thông báo lỗi -->
+    <div th:if="${not #strings.isEmpty(errorMessage)}" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
     <a class="btn btn-primary" href="/products/export" target="_blank">Xuất File Excel Danh Sách Sản Phẩm</a>
     <form th:action="@{/products/search}" method="get" class="mb-3">
         <br/>
@@ -91,7 +100,6 @@
             <td th:text="${product.description}"></td>
             <td th:text="${product.category.name}"></td>
             <td>
-                <!-- Hiển thị nút sửa và xóa chỉ dành cho người dùng ADMIN -->
                 <div>
                     <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Sửa</a>
                     <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc không?')">Xóa</a>

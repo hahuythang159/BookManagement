@@ -3,6 +3,7 @@ package com.hutech.demo.service;
 import com.hutech.demo.model.Category;
 import com.hutech.demo.model.Product;
 import com.hutech.demo.repository.CategoryRepository;
+import com.hutech.demo.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
     /**
      * Retrieve all categories from the database.
@@ -62,9 +64,15 @@ public class CategoryService {
      * @param id the id of the category to delete
      */
     public void deleteCategoryById(Long id) {
-        if (!categoryRepository.existsById(id)) {
-            throw new IllegalStateException("Category with ID " + id + " does not exist.");
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Category with ID " + id + " does not exist."));
+
+        // Kiểm tra xem danh mục có chứa sản phẩm hay không
+        List<Product> productsInCategory = productRepository.findByCategory(category);
+        if (!productsInCategory.isEmpty()) {
+            throw new IllegalArgumentException("Không thể xóa danh mục có sản phẩm.");
         }
-        categoryRepository.deleteById(id);
+
+        categoryRepository.delete(category);
     }
 }

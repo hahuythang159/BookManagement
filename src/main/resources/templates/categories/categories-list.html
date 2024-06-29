@@ -59,6 +59,16 @@
 <body>
 <section layout:fragment="content">
     <h1>Danh sách thể loại</h1>
+    <!-- Thông báo thành công -->
+    <div th:if="${not #strings.isEmpty(successMessage)}" class="alert alert-success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <!-- Thông báo lỗi -->
+    <div th:if="${not #strings.isEmpty(errorMessage)}" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
     <div class="mb-3">
         <a th:href="@{/categories/add}" class="btn btn-primary">Thêm thể loại</a>
     </div>

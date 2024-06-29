@@ -48,12 +48,16 @@ public class ProductService {
 
         return productRepository.save(existingProduct);
     }
-
+    public boolean isProductPurchased(Long productId) {
+        return orderDetailRepository.existsByProductId(productId);
+    }
     public void deleteProductById(Long id) {
         if (!productRepository.existsById(id)) {
             throw new IllegalStateException("Product with ID " + id + " does not exist.");
         }
-        orderDetailRepository.deleteByProductId(id);
+        if (isProductPurchased(id)) {
+            throw new IllegalArgumentException("Không thể xóa sản phẩm đã mua.");
+        }
         productRepository.deleteById(id);
     }
 
@@ -95,5 +99,6 @@ public class ProductService {
     public List<Product> searchProducts(String query) {
         return productRepository.findByNameContainingIgnoreCase(query);
     }
+
 
 }
