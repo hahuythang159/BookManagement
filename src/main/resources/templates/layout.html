@@ -180,6 +180,9 @@
                 <li class="nav-item">
                     <a class="nav-link text-white active" aria-current="page" href="/home">Home</a>
                 </li>
+                <li class="nav-item" sec:authorize="!hasAnyAuthority('ADMIN')">
+                    <a class="nav-link text-white active" aria-current="page" href="/support/form">Hỗ trợ</a>
+                </li>
                 <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
                     <a class="nav-link text-white active" aria-current="page" href="/products">Sản phẩm</a>
                 </li>
@@ -196,7 +199,10 @@
                     <a class="nav-link text-white active" aria-current="page" href="https://sandbox.vnpayment.vn/merchantv2/Home/Dashboard.htm">Quản lý đơn hàng VNPAY</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-                    <a class="nav-link text-white active" aria-current="page" href="/products/sales">Quản lý số lượng bán ra</a>
+                    <a class="nav-link text-white active" aria-current="page" href="/products/sales">Quản lý Doanh Thu</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="nav-link text-white active" aria-current="page" href="/support/list">Quản lý Hỗ trợ</a>
                 </li>
 
             </ul>

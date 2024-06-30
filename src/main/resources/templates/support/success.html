@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title th:text="${title} ?: 'Hỗ Trợ'">Yêu Cầu Hỗ Trợ Đã Gửi Thành Công</title>
+  <style>
+    /* Reset CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #28a745;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    /* Thêm style cho nút "Quay về trang chủ" */
+    .btn-home {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+
+    }
+
+    .btn-home:hover {
+      background-color: #45a049;
+    }
+
+    .btn-home:active {
+      background-color: #3e8e41;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+<section layout:fragment="content">
+<div class="container">
+  <h2>Yêu Cầu Hỗ Trợ Đã Gửi Thành Công</h2>
+  <p>Cảm ơn bạn đã gửi yêu cầu hỗ trợ. Chúng tôi sẽ sớm phản hồi lại qua email.</p>
+  <a href="/home" class="btn-home">Quay về trang chủ</a>
+</div>
+</section>
+</body>
+</html>
+

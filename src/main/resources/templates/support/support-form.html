@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title th:text="${title} ?: 'Hỗ Trợ'">Form Yêu Cầu Hỗ Trợ</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa; /* Match the background color of the product list */
+    }
+
+    h2 {
+        color: #007bff; /* Match the heading color of the product list */
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type=text], input[type=email], textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ced4da; /* Match the input border color of the product list */
+        border-radius: 5px; /* Match the input border radius of the product list */
+    }
+
+    button[type=submit] {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        margin-top: 10px; /* Ensure proper spacing */
+    }
+
+    button[type=submit]:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    button[type=submit]:focus {
+        outline: none;
+    }
+  </style>
+</head>
+<body>
+<section layout:fragment="content">
+  <h2>Yêu Cầu Hỗ Trợ</h2>
+  <form th:action="@{/support/submit}" th:object="${support}" method="post">
+    <label for="customerName">Họ và tên:</label><br>
+    <input type="text" id="customerName" name="customerName" required><br><br>
+
+    <label for="customerEmail">Email:</label><br>
+    <input type="email" id="customerEmail" name="customerEmail" required><br><br>
+
+    <label for="supportContent">Nội dung hỗ trợ:</label><br>
+    <textarea id="supportContent" name="supportContent" rows="4" required></textarea><br><br>
+
+    <button type="submit">Gửi yêu cầu</button>
+  </form>
+</section>
+</body>
+</html>
