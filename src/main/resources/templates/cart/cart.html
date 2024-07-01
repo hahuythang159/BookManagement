@@ -121,6 +121,16 @@
     <div class="total-amount" th:if="${!cartItems.isEmpty()}">
         Tổng tiền: <span th:text="${totalAmount} + ' VND'"></span>
     </div>
+    <form th:action="@{/cart/applyVoucher}" method="post" class="mt-3">
+        <div class="mb-3">
+            <label for="voucherId" class="form-label">Chọn Voucher:</label>
+            <select id="voucherId" name="voucherId" class="form-control" required>
+                <option th:each="voucher : ${vouchers}" th:value="${voucher.id}"
+                        th:text="${voucher.code + ' - Giảm ' + voucher.discountAmount + ' VND'}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Áp dụng Voucher</button>
+    </form>
     <div class="action-buttons mt-3">
         <a th:href="@{/cart/clear}" class="btn btn-secondary">Xoá toàn bộ cuốn sách</a>
         <a th:href="@{/home}" class="btn btn-primary">Tiếp tục mua sắm</a>

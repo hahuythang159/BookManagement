@@ -100,27 +100,27 @@
 </head>
 <body>
 <section layout:fragment="content">
-<div class="container">
-  <h2>Chi Tiết Yêu Cầu Hỗ Trợ</h2>
+  <div class="container">
+    <h2>Chi Tiết Yêu Cầu Hỗ Trợ</h2>
 
-  <div class="support-details">
-    <div>
-      <p><strong>Mã Yêu Cầu:</strong> <span th:text="${support.id}"></span></p>
-      <p><strong>Họ và Tên:</strong> <span th:text="${support.customerName}"></span></p>
-      <p><strong>Email:</strong> <span th:text="${support.customerEmail}"></span></p>
-      <p><strong>Nội dung hỗ trợ:</strong></p>
-      <p th:text="${support.supportContent}"></p>
-      <p><strong>Ngày Gửi:</strong> <span th:text="${#temporals.format(support.submitDate, 'dd/MM/yyyy HH:mm')}"></span></p>
-      <p><strong>Trạng Thái:</strong> <span th:text="${support.status}"></span></p>
-    </div>
-    <div>
-      <a class="btn-home" href="/support/list">Quay lại</a>
-    <a th:href="'https://mail.google.com/mail/?view=cm&fs=1&to=' + ${support.customerEmail} + '&su=Re:%20Support%20Request%20#' + ${support.id} + '&body=Dear%20' + ${support.customerName} + '%0D%0A%0D%0A' + 'We%20have%20reviewed%20your%20support%20request%20and%20our%20response%20is:%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0ABest%20Regards,%0D%0A%0D%0A%0D%0A%0D%0A'">
-      <button type="button">Gửi phản hồi</button>
-    </a>
+    <div class="support-details">
+      <div>
+        <p><strong>Mã Yêu Cầu:</strong> <span th:text="${support.id}"></span></p>
+        <p><strong>Họ và Tên:</strong> <span th:text="${support.customerName}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${support.customerEmail}"></span></p>
+        <p><strong>Nội dung hỗ trợ:</strong></p>
+        <p th:text="${support.supportContent}"></p>
+        <p><strong>Ngày Gửi:</strong> <span th:text="${#temporals.format(support.submitDate, 'dd/MM/yyyy HH:mm')}"></span></p>
+        <p><strong>Trạng Thái:</strong> <span th:text="${support.status}"></span></p>
+      </div>
+      <div>
+        <a class="btn-home" href="/support/list">Quay lại</a>
+        <a th:href="'https://mail.google.com/mail/?view=cm&fs=1&to=' + ${support.customerEmail} + '&su=Re:%20Support%20Request%20#' + ${support.id} + '&body=Dear%20' + ${support.customerName} + '%0D%0A%0D%0A' + 'We%20have%20reviewed%20your%20support%20request%20and%20our%20response%20is:%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0ABest%20Regards,%0D%0A%0D%0A%0D%0A%0D%0A'">
+          <button type="button">Gửi phản hồi</button>
+        </a>
+      </div>
     </div>
   </div>
-</div>
 </section>
 </body>
 </html>

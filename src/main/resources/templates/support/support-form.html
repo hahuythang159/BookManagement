@@ -11,26 +11,26 @@
         background-color: #f8f9fa; /* Match the background color of the product list */
     }
 
-    h2 {
+    h2.support-title {
         color: #007bff; /* Match the heading color of the product list */
         text-align: center;
         margin-bottom: 20px;
     }
 
-    form {
+    .support-form {
         max-width: 600px;
         margin: 0 auto;
         background-color: #ffffff;
         border-radius: 10px;
         box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-        padding: 20px;
+        padding: 20px; /* Added padding for better spacing inside the form */
     }
 
-    label {
+    .support-form label {
         font-weight: bold;
     }
 
-    input[type=text], input[type=email], textarea {
+    .support-form input[type=text], .support-form input[type=email], .support-form textarea {
         width: 100%;
         padding: 10px;
         margin-bottom: 10px;
@@ -38,7 +38,7 @@
         border-radius: 5px; /* Match the input border radius of the product list */
     }
 
-    button[type=submit] {
+    .support-form button[type=submit] {
         background-color: #007bff;
         border-color: #007bff;
         color: white;
@@ -50,20 +50,20 @@
         margin-top: 10px; /* Ensure proper spacing */
     }
 
-    button[type=submit]:hover {
+    .support-form button[type=submit]:hover {
         background-color: #0056b3;
         border-color: #0056b3;
     }
 
-    button[type=submit]:focus {
+    .support-form button[type=submit]:focus {
         outline: none;
     }
   </style>
 </head>
 <body>
 <section layout:fragment="content">
-  <h2>Yêu Cầu Hỗ Trợ</h2>
-  <form th:action="@{/support/submit}" th:object="${support}" method="post">
+  <h2 class="support-title">Yêu Cầu Hỗ Trợ</h2>
+  <form th:action="@{/support/submit}" th:object="${support}" method="post" class="support-form">
     <label for="customerName">Họ và tên:</label><br>
     <input type="text" id="customerName" name="customerName" required><br><br>
 

@@ -50,8 +50,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/", "/oauth/**", "/home","/products/detail/**", "/register", "/error", "/cart", "/cart/**", "/images/**").permitAll()
-                        .requestMatchers("/products/edit/**", "/products/add","/products/**" ,"/categories/**" ,"/products/delete").hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
+                        .requestMatchers("/css/**", "/js/**", "/", "/oauth/**", "/home","/products/detail/**", "/register", "/error", "/cart", "/cart/**", "/images/**", "/voucher/**").permitAll()
+                        .requestMatchers("/products/edit/**", "/products/add","/products/**" ,"/categories/**" ,"/products/delete","/support/list").hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
                         .requestMatchers("/api/products/**").permitAll() // API mở cho mọi người dùng.
                         .anyRequest().authenticated() // Bất kỳ yêu cầu nào khác cần xác thực.
                 )

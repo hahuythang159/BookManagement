@@ -2,18 +2,17 @@ package com.hutech.demo.controller;
 
 import com.hutech.demo.model.CartItem;
 import com.hutech.demo.model.Order;
-import com.hutech.demo.model.Product;
 import com.hutech.demo.repository.OrderRepository;
-import org.springframework.http.HttpHeaders;
 import com.hutech.demo.service.CartService;
 import com.hutech.demo.service.ExcelExportService;
 import com.hutech.demo.service.OrderService;
 import com.hutech.demo.service.VNPAYService;
+import com.hutech.demo.service.VoucherService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,13 +32,23 @@ public class OrderController {
     private VNPAYService vnPayService;
     @Autowired
     private ExcelExportService excelExportService;
+    @Autowired
+    private VoucherService voucherService;
 
     @GetMapping("/checkout")
     public String checkout() {
         return "/cart/checkout";
     }
+
     @PostMapping("/submit")
-    public String submitOrder(String customerName, String StreetAddress, String PhoneNumber, String email, String note, String thanhToan, HttpServletRequest request) {
+    public String submitOrder(@RequestParam String customerName,
+                              @RequestParam String StreetAddress,
+                              @RequestParam String PhoneNumber,
+                              @RequestParam String email,
+                              @RequestParam String note,
+                              @RequestParam String thanhToan,
+                              @RequestParam(required = false) String voucherCode,
+                              HttpServletRequest request) {
         List<CartItem> cartItems = cartService.getCartItems();
         if (cartItems.isEmpty()) {
             return "redirect:/cart"; // Redirect if cart is empty
@@ -55,11 +64,12 @@ public class OrderController {
             String vnpayUrl = vnPayService.createOrder(request, (int) totalAmount, "Thanh toán giỏ hàng", baseUrl);
             return "redirect:" + vnpayUrl;
         } else {
-            // Xử lý thanh toán tiền mặt
-            orderService.createOrder(customerName, StreetAddress, PhoneNumber, email, note, thanhToan, cartItems);
+            // Xử lý thanh toán tiền mặt và áp dụng mã giảm giá nếu có
+            orderService.createOrder(customerName, StreetAddress, PhoneNumber, email, note, thanhToan, cartItems, voucherCode);
             return "redirect:/order/confirmation";
         }
     }
+
     @GetMapping
     public String showOrderList(Model model) {
         model.addAttribute("orders", orderService.getAllOrders());
@@ -71,6 +81,7 @@ public class OrderController {
         model.addAttribute("message", "Your order has been successfully placed.");
         return "cart/order-confirmation";
     }
+
     @GetMapping("/view/{orderId}")
     public String viewOrderDetails(@PathVariable Long orderId, Model model) {
         Order order = orderService.getOrderById(orderId);
@@ -83,6 +94,7 @@ public class OrderController {
         model.addAttribute("totalAmount", totalAmount);
         return "orders/order-details";
     }
+
     @GetMapping("/vnpay-payment-return")
     public String paymentCompleted(HttpServletRequest request, Model model) {
         int paymentStatus = vnPayService.orderReturn(request);
@@ -114,5 +126,4 @@ public class OrderController {
                 .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
                 .body(new InputStreamResource(in));
     }
-
 }

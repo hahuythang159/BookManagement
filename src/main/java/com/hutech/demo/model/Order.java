@@ -19,7 +19,10 @@ public class Order {
     private String note;
     private String thanhToan;
     private double totalPrice;
+    private double totalAmount;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetails;
-
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 }
